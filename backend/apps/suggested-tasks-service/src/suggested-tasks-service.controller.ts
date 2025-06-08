@@ -8,14 +8,14 @@ import {
   Body,
 } from '@nestjs/common';
 import { SuggestedTaskService } from './suggested-tasks-service.service';
-import { SuggestedTask } from '../../../libs/database';
+import { SuggestedTask } from '@callCenter/database';
 import {
   EditSuggestedTaskNameDto,
   EditSuggestedTaskTagsDto,
   CreateSuggestedTaskDto,
-} from '../../../libs/common';
+} from '@callCenter/common';
 import { Roles } from '../../auth/src/roles.decorator';
-import { UserRole } from '../../../libs/database/src/entities/user.entity';
+import { UserRole } from '@callCenter/database';
 
 @Controller('suggested-tasks')
 export class SuggestedTaskController {

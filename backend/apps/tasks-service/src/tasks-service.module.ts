@@ -3,14 +3,17 @@ import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { LoggerModule } from '@phishing/logger';
+import { LoggerModule } from '@callCenter/logger';
 
 import { TaskController } from './tasks-service.controller';
 import { TaskService } from './tasks-service.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Task, Call, SuggestedTask } from '../../../libs/database';
-
-import { DatabaseModule } from '../../../libs/database';
+import {
+  Task,
+  Call,
+  SuggestedTask,
+  DatabaseModule,
+} from '@callCenter/database';
 
 //TODO: add @libs shortcut
 

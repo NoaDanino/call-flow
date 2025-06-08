@@ -11,7 +11,6 @@ export interface TagDTO {
   name: string;
 }
 
-/** POST /suggested-tasks { name, tagIds } */
 export async function createSuggestedTask(
   name: string,
   tagIds: string[]

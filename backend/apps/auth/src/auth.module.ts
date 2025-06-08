@@ -8,11 +8,24 @@ import { JwtStrategy } from './jwt.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RolesGuard } from './roles.guard';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../../../libs/database/src/entities/user.entity';
-import { DatabaseModule } from '../../../libs/database';
+import { User } from '@callCenter/database';
+import { DatabaseModule } from '@callCenter/database';
+import { LoggerModule } from '@callCenter/logger';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as path from 'path';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: path.resolve(__dirname, '../../../apps/tags-service/.env'),
+    }),
+    LoggerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        configService.get<string>('SERVICE_NAME') || 'AuthService',
+    }),
     DatabaseModule,
     TypeOrmModule.forFeature([User]),
     PassportModule,

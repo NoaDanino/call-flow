@@ -1,4 +1,3 @@
-// user.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { IsString, IsNotEmpty } from 'class-validator';
 
@@ -23,7 +22,7 @@ export class User {
   lastName: string;
 
   @Column()
-  password: string; // hashed
+  password: string;
 
   @Column({ unique: true })
   email: string;

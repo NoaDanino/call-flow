@@ -26,24 +26,6 @@
         "tsConfigPath": "apps/calls-service/tsconfig.app.json"
       }
     },
-    "phishing-manager": {
-      "type": "application",
-      "root": "apps/phishing-manager",
-      "entryFile": "main",
-      "sourceRoot": "apps/phishing-manager/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/phishing-manager/tsconfig.app.json"
-      }
-    },
-    "phishing-sender": {
-      "type": "application",
-      "root": "apps/phishing-sender",
-      "entryFile": "main",
-      "sourceRoot": "apps/phishing-sender/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/phishing-sender/tsconfig.app.json"
-      }
-    },
     "suggested-tasks-service": {
       "type": "application",
       "root": "apps/suggested-tasks-service",
@@ -69,15 +51,6 @@
       "sourceRoot": "apps/tasks-service/src",
       "compilerOptions": {
         "tsConfigPath": "apps/tasks-service/tsconfig.app.json"
-      }
-    },
-    "users-service": {
-      "type": "application",
-      "root": "apps/users-service",
-      "entryFile": "main",
-      "sourceRoot": "apps/users-service/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/users-service/tsconfig.app.json"
       }
     }
   }

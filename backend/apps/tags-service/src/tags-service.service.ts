@@ -1,13 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { LoggerService } from '@phishing/logger';
-import { handleErrorThrow } from '@phishing/utils';
+import { LoggerService } from '@callCenter/logger';
 
 import { Repository } from 'typeorm';
-import { Tag } from '../../../libs/database';
+import { Tag } from '@callCenter/database';
 import { InjectRepository } from '@nestjs/typeorm';
-import { log } from 'node:console';
 
 @Injectable()
 export class TagsService {
@@ -21,10 +19,6 @@ export class TagsService {
     private configService: ConfigService,
     private readonly logger: LoggerService,
   ) {
-    // this.senderEmail =
-    //   this.configService.get<string>('EMAIL') || 'phishingcymulate@gmail.com';
-    // this.senderPass =
-    //   this.configService.get<string>('EMAIL_PASS') || 'dpov qtvz rytf fesa';
     // this.port = this.configService.get<number>('PORT') || 3000;
   }
 

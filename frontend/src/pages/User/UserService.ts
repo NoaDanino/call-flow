@@ -27,7 +27,6 @@ export interface SuggestedTask {
   name: string;
 }
 
-// Fetch all calls
 export async function getAllCalls(): Promise<Call[]> {
   const res = await axios.get(CALL_SERVICE_URL);
   console.log(res.data);

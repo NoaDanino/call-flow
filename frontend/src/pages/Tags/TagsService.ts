@@ -32,10 +32,8 @@ export async function getAllTags() {
     throw new Error('Failed to fetch tags');
   }
 
-  return response.json(); // expected to return an array of tag objects
+  return response.json();
 }
-
-// TagsService.js
 
 export async function updateTag(id: string, newName: string) {
   try {

@@ -3,6 +3,7 @@ import { SuggestedTasksModule } from './suggested-tasks-service.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ClassSerializerInterceptor } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(SuggestedTasksModule);
@@ -21,6 +22,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   //This tells NestJS to respect @Exclude() and @Expose() decorators on response objects.
 
-  await app.listen(process.env.port ?? 3003);
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('PORT') ?? 3003;
+  await app.listen(port);
 }
 bootstrap();

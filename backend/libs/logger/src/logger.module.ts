@@ -1,4 +1,3 @@
-// libs/logger/logger.module.ts
 import {
   DynamicModule,
   Module,
@@ -10,9 +9,9 @@ import { LoggerService, LOGGER_SERVICE_NAME } from './logger.service';
 
 interface LoggerModuleAsyncOptions {
   isGlobal?: boolean;
-  imports?: ModuleMetadata['imports']; // Modules to import (e.g., ConfigModule)
+  imports?: ModuleMetadata['imports'];
   useFactory: (...args: any[]) => Promise<string> | string;
-  inject?: any[]; // Providers to inject into useFactory (e.g., ConfigService)
+  inject?: any[];
 }
 
 @Module({})

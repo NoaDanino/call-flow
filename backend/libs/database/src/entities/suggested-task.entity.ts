@@ -1,4 +1,3 @@
-// suggested-task.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -30,9 +29,6 @@ export class SuggestedTask {
     inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
   })
   tags: Tag[];
-
-  // @OneToMany(() => SuggestedTaskTag, (stt) => stt.suggestedTask)
-  // suggestedTaskTags: SuggestedTaskTag[];
 
   @OneToMany(() => Task, (task) => task.suggestedTask)
   tasks: Task[];

@@ -8,13 +8,12 @@ import {
   Get,
 } from '@nestjs/common';
 
-import { LoggerService } from '@phishing/logger';
+import { LoggerService } from '@callCenter/logger';
 
 import { TagsService } from './tags-service.service';
-import { CreateTagDto } from 'libs/common/dto/create-tag.dto';
+import { CreateTagDto } from '@callCenter/common';
 import { Roles } from '../../auth/src/roles.decorator';
-import { UserRole } from '../../../libs/database/src/entities/user.entity';
-import { Tag } from '../../../libs/database/src/entities';
+import { UserRole, Tag } from '@callCenter/database';
 
 @Controller('tags')
 export class TagsController {

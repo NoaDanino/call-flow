@@ -1,4 +1,3 @@
-// Tags.tsx
 import { useEffect, useState } from 'react';
 import { IconPencil, IconX } from '@tabler/icons-react';
 import { Box, Button, Group, Paper, Stack, Text, TextInput, Title } from '@mantine/core';
@@ -24,7 +23,6 @@ export function Tags() {
     { id: string; name: string; isEditing: boolean; editedName: string }[]
   >([]);
 
-  // Helper to map raw tags into UI-friendly tags with editing state
   const mapTags = (rawTags: { id?: string; name: string }[]) =>
     rawTags.map((tag) => ({
       id: tag.id ?? tag.name,
@@ -59,7 +57,6 @@ export function Tags() {
   async function handleDelete(id: string) {
     try {
       await deleteTag(id);
-      // Refresh tags after deletion
       const result = await getAllTags();
       setTags(mapTags(result));
     } catch (err) {

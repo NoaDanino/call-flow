@@ -19,18 +19,10 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@phishing/database": [
-        "libs/old-app-delete/database"
-      ],
-      "@phishing/features": [
-        "libs/features"
-      ],
-      "@phishing/logger": [
-        "libs/logger"
-      ],
-      "@phishing/utils": [
-        "libs/utils"
-      ]
+      "@callCenter/database": ["libs/database"],
+      "@callCenter/common": ["libs/common"],
+      "@callCenter/logger": ["libs/logger"],
+      "@callCenter/utils": ["libs/utils"]
     }
   }
 }

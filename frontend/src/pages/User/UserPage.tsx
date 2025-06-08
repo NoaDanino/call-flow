@@ -1,4 +1,3 @@
-// UserPage.tsx
 import { useEffect, useState } from 'react';
 import { IconCheck, IconPencil, IconPlus, IconX } from '@tabler/icons-react';
 import {
@@ -145,17 +144,14 @@ export function UserPage() {
   }, [selectedCallId]);
 
   useEffect(() => {
-    // Whenever we switch to a different call, close the “add task” input
-    // and show the ➕ icon again.
     setAddingNewTask(false);
     setNewTaskName('');
   }, [selectedCallId]);
 
-  /* ─── helper: tags CRUD ──────────────────────────────────────────────── */
   async function handleAddTag(tagId: string) {
     if (!selectedCallId) return;
     await addTagToCall(selectedCallId, tagId);
-    setCallTags(await getCallTags(selectedCallId)); // refresh UI
+    setCallTags(await getCallTags(selectedCallId));
   }
 
   async function handleDeleteTag(tagId: string) {
@@ -164,7 +160,6 @@ export function UserPage() {
     setCallTags(await getCallTags(selectedCallId));
   }
 
-  /* ─── helper: task status change ─────────────────────────────────────── */
   async function handleStatusChange(task: Task, newStatus: string) {
     if (newStatus === task.status) return;
     setTaskStatusUpdating(task.id);
@@ -178,13 +173,11 @@ export function UserPage() {
     }
   }
 
-  /* ─── helper: task delete ────────────────────────────────────────────── */
   async function handleDeleteTask(taskId: string) {
     await deleteCallTask(taskId);
     setCallTasks((prev) => prev.filter((t) => t.id !== taskId));
   }
 
-  /* ─── helper: task name edit ─────────────────────────────────────────── */
   function startEditName(t: Task) {
     setEditingTaskId(t.id);
     setEditNameValue(t.name);
@@ -206,13 +199,11 @@ export function UserPage() {
     cancelEditName();
   }
 
-  /* ─── helper: add suggested-task to call ─────────────────────────────── */
   async function onAddSuggestedTask(st: SuggestedTask) {
     if (!selectedCallId) return;
     setAddingSuggestedTaskId(st.id);
     try {
       await addTask({ callId: selectedCallId, suggestedTaskId: st.id });
-      // refresh tasks list from API to get real ids & statuses
       setCallTasks(await getCallTasks(selectedCallId));
     } finally {
       setAddingSuggestedTaskId(null);
@@ -221,7 +212,6 @@ export function UserPage() {
 
   const isAssigned = (st: SuggestedTask) => callTasks.some((t) => t.name === st.name);
 
-  /* ─── render helpers ─────────────────────────────────────────────────── */
   if (loadingCalls) {
     return (
       <Paper p="xl" h="100vh">
@@ -233,7 +223,6 @@ export function UserPage() {
     );
   }
 
-  /* left column – calls list ------------------------------------------------ */
   const CallsColumn = (
     <Paper shadow="sm" p="md" w={250} style={{ overflowY: 'auto' }}>
       <Title order={4} mb="md">
@@ -260,11 +249,8 @@ export function UserPage() {
     </Paper>
   );
 
-  /* tasks list row ---------------------------------------------------------- */
-
   const TaskRow = (t: Task) => (
     <Group key={t.id} justify="space-between" align="center">
-      {/* name (text or TextInput) */}
       {editingTaskId === t.id ? (
         <TextInput
           value={editNameValue}
@@ -276,7 +262,6 @@ export function UserPage() {
         <Text style={{ flex: 1 }}>{t.name}</Text>
       )}
 
-      {/* status selector */}
       <Select
         data={STATUS_OPTIONS}
         value={t.status}
@@ -286,7 +271,6 @@ export function UserPage() {
         w={140}
       />
 
-      {/* actions */}
       {editingTaskId === t.id ? (
         <>
           <ActionIcon color="green" variant="light" size="sm" onClick={() => saveEditName(t)}>
@@ -309,13 +293,11 @@ export function UserPage() {
     </Group>
   );
 
-  /* right column – details -------------------------------------------------- */
   const selectedCall = calls.find((c) => c.id === selectedCallId);
   const DetailsColumn = selectedCall && (
     <Stack flex={1} h="100%" gap="md" style={{ overflowY: 'auto' }}>
       <Title order={3}>{selectedCall.title}</Title>
 
-      {/* TAGS */}
       <TagSection
         callTags={callTags}
         allTags={allTags}
@@ -325,7 +307,6 @@ export function UserPage() {
         handleDeleteTag={handleDeleteTag}
       />
 
-      {/* TASKS */}
       <Paper withBorder p="sm" style={{ flexGrow: 1, overflowY: 'auto' }}>
         <Group justify="space-between" align="center" mb="xs">
           <Text fw={500}>Tasks</Text>
@@ -382,7 +363,6 @@ export function UserPage() {
         )}
       </Paper>
 
-      {/* SUGGESTED TASKS */}
       <Paper withBorder p="sm" style={{ flexGrow: 1, overflowY: 'auto' }}>
         <Text fw={500} mb="xs">
           Suggested Tasks

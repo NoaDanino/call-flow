@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
-import { Task, Tag, SuggestedTask } from '../../../libs/database';
+import { Task, Tag, SuggestedTask } from '@callCenter/database';
+import { LoggerService } from '@callCenter/logger';
+import { ConfigService } from '@nestjs/config';
 
 type CreateSuggestedTaskResponse = {
   suggestedTask: SuggestedTask;
@@ -17,6 +19,8 @@ export class SuggestedTaskService {
     private readonly tagRepo: Repository<Tag>,
     @InjectRepository(Task)
     private readonly taskRepo: Repository<Task>,
+    private readonly configService: ConfigService,
+    private readonly logger: LoggerService,
   ) {}
 
   async createSuggestedTask(
@@ -34,7 +38,7 @@ export class SuggestedTaskService {
         const missingIds = tagIds.filter((id) => !foundIds.includes(id));
 
         warning = `Warning: The following tags were not found and will be ignored: ${missingIds.join(', ')}`;
-        console.warn(warning); // Log the warning
+        console.warn(warning);
       }
     }
 
@@ -65,27 +69,21 @@ export class SuggestedTaskService {
     id: string,
     tagIds: string[],
   ): Promise<{ SuggestedTask; warning?: string }> {
-    // 1. Load the suggested task with current tags
     const suggested = await this.suggestedTaskRepo.findOne({
       where: { id },
       relations: ['tags'],
     });
     if (!suggested) throw new NotFoundException('Suggested task not found');
 
-    // 2. Fetch tag entities that exist in the database
     const foundTags = await this.tagRepo.findBy({ id: In(tagIds) });
 
-    // 3. Identify any tag IDs that were not found
     const foundIds = foundTags.map((t) => t.id);
     const missingIds = tagIds.filter((tid) => !foundIds.includes(tid));
 
-    // 4. Replace the task’s tags with only the found ones
     suggested.tags = foundTags;
 
-    // 5. Save and return the updated task
     const saved = await this.suggestedTaskRepo.save(suggested);
 
-    // 6. Return with optional warning
     let warning: string | undefined;
     if (missingIds.length > 0) {
       warning = `Warning: these tag IDs were not found and were ignored: ${missingIds.join(', ')}`;
@@ -95,14 +93,12 @@ export class SuggestedTaskService {
     return { SuggestedTask: saved, warning };
   }
 
-  // Delete suggested task
   async deleteSuggestedTask(id: string): Promise<void> {
     const result = await this.suggestedTaskRepo.delete(id);
     if (result.affected === 0)
       throw new NotFoundException('Suggested task not found');
   }
 
-  // List all suggested tasks
   async getAllSuggestedTasks(): Promise<SuggestedTask[]> {
     return this.suggestedTaskRepo.find({ relations: ['tags', 'tasks'] });
   }

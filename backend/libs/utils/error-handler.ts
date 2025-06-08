@@ -1,4 +1,4 @@
-import { LoggerService } from '@phishing/logger';
+import { LoggerService } from '@callCenter/logger';
 import { InternalServerErrorException } from '@nestjs/common';
 
 export function handleErrorThrow(

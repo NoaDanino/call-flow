@@ -10,7 +10,7 @@ export default tseslint.config(
   },
   {
     languageOptions: {
-      parser: tseslint.parser, // ✅ Needed to understand TypeScript syntax
+      parser: tseslint.parser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
@@ -38,7 +38,7 @@ export default tseslint.config(
           ],
           pathGroups: [
             {
-              pattern: '@phishing/**',
+              pattern: '@callCenter/**',
               group: 'internal',
               position: 'after',
             },

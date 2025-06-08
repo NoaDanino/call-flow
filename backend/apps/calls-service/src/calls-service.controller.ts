@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CallsService } from './calls-service.service';
 import { Roles } from '../../auth/src/roles.decorator';
-import { UserRole } from '../../../libs/database/src/entities/user.entity';
+import { UserRole } from '@callCenter/database/src/entities/user.entity';
 import { log } from 'winston';
 
 @Controller('calls')
@@ -32,8 +32,6 @@ export class CallsController {
   @Post('add-tag')
   addTagToCall(@Body() body: { callId: string; tagId: string }) {
     const { callId, tagId } = body;
-    console.log(callId, tagId);
-
     return this.callsService.addTagToCall(callId, tagId);
   }
 
@@ -41,8 +39,6 @@ export class CallsController {
   @Delete('delete-call-tag')
   deleteCallTag(@Body() body: { callId: string; tagId: string }) {
     const { callId, tagId } = body;
-    console.log(callId, tagId);
-
     return this.callsService.removeTagFromCall(callId, tagId);
   }
 

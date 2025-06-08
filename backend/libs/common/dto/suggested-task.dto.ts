@@ -8,18 +8,16 @@ import {
   IsOptional,
 } from 'class-validator';
 
-// DTO for editing the Suggested Task name
 export class EditSuggestedTaskNameDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 }
 
-// DTO for editing Suggested Task tags
 export class EditSuggestedTaskTagsDto {
   @IsArray()
   @ArrayUnique()
-  @IsUUID('all', { each: true }) // each element should be a valid UUID
+  @IsUUID('all', { each: true })
   tags: string[];
 }
 

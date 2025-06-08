@@ -1,4 +1,3 @@
-// TagSection.tsx
 import React from 'react';
 import { IconPlus, IconX } from '@tabler/icons-react';
 import { ActionIcon, Badge, Group, Loader, Menu, Paper, Stack, Text } from '@mantine/core';
@@ -21,7 +20,6 @@ export function TagSection({
   handleAddTag,
   handleDeleteTag,
 }: TagSectionProps) {
-  // Filter tags that are not yet assigned
   const remainingTags = allTags.filter((t) => !callTags.some((assigned) => assigned.id === t.id));
 
   return (

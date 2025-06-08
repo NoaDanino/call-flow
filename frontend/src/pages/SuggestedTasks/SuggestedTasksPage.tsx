@@ -120,12 +120,10 @@ export default function SuggestedTasks() {
         requests.push(updateSuggestedTaskTags(editingId, editTagIds));
       }
 
-      // Run all updates
       if (requests.length) {
         await Promise.all(requests);
       }
 
-      // Refresh list
       setTasks(await getAllSuggestedTasks());
       cancelEdit();
     } catch (err) {

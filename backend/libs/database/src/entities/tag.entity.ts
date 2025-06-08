@@ -22,12 +22,6 @@ export class Tag {
   @OneToMany(() => CallTag, (ct) => ct.tag)
   callTags: CallTag[];
 
-  // @ManyToOne(() => SuggestedTask, (suggestedTask) => suggestedTask.tasks, {
-  //   onDelete: 'SET NULL', // or CASCADE, depending on your use case
-  //   nullable: true,
-  // })
-  // suggestedTask: SuggestedTask;
-
   @ManyToMany(() => SuggestedTask, (suggestedTask) => suggestedTask.tags)
   suggestedTasks: SuggestedTask[];
 }

@@ -3,19 +3,13 @@ import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { LoggerModule } from '@phishing/logger';
+import { LoggerModule } from '@callCenter/logger';
 
 import { CallsService } from './calls-service.service';
 import { CallsController } from './calls-service.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  Tag,
-  Call,
-  Task,
-  CallTag,
-  SuggestedTask,
-} from '../../../libs/database';
-import { DatabaseModule } from '../../../libs/database';
+import { Tag, Call, Task, CallTag, SuggestedTask } from '@callCenter/database';
+import { DatabaseModule } from '@callCenter/database';
 
 //TODO: add @libs shortcut
 
@@ -29,7 +23,7 @@ import { DatabaseModule } from '../../../libs/database';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>
-        configService.get<string>('SERVICE_NAME') || 'TagsService',
+        configService.get<string>('SERVICE_NAME') || 'CallsService',
     }),
     DatabaseModule,
     TypeOrmModule.forFeature([Call, Tag, Task, CallTag, SuggestedTask]),

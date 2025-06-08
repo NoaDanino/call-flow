@@ -8,7 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { LoginDto } from './login.dto';
 import { Public } from './public.decorator';
-import { CreateUserDto } from '../../../libs/common';
+import { CreateUserDto } from '@callCenter/common';
 
 @Controller('auth')
 export class AuthController {
