@@ -1,0 +1,27 @@
+import {
+  JoinColumn,
+  PrimaryGeneratedColumn,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  OneToMany,
+} from 'typeorm';
+import { SuggestedTask, Task } from '../entities';
+
+@Entity('suggested_task_tags')
+export class SuggestedTaskTag {
+  @PrimaryColumn()
+  suggested_task_id: string;
+
+  @PrimaryColumn()
+  tag_id: string;
+
+  @JoinColumn({ name: 'suggested_task_id' })
+  @ManyToOne(() => SuggestedTask, (st) => st.suggestedTaskTags, {
+    onDelete: 'CASCADE',
+  })
+  suggestedTask: SuggestedTask;
+
+  @OneToMany(() => Task, (task) => task.suggestedTask)
+  tasks: Task[];
+}

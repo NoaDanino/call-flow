@@ -1,0 +1,25 @@
+import { Entity, ManyToOne, PrimaryColumn, Column } from 'typeorm';
+import { Call } from './call.entity';
+import { SuggestedTask } from './suggested-task.entity';
+
+@Entity('call_suggested_tasks')
+export class CallSuggestedTask {
+  @PrimaryColumn()
+  call_id: string;
+
+  @PrimaryColumn()
+  suggested_task_id: string;
+
+  @Column({ default: 'Open' })
+  status: 'Open' | 'In Progress' | 'Completed';
+
+  @ManyToOne(() => Call, (call) => call.callSuggestedTasks, {
+    onDelete: 'CASCADE',
+  })
+  call: Call;
+
+  @ManyToOne(() => SuggestedTask, (st) => st.callSuggestedTasks, {
+    onDelete: 'CASCADE',
+  })
+  suggestedTask: SuggestedTask;
+}
