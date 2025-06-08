@@ -7,7 +7,7 @@ import {
   JoinTable,
   OneToMany,
 } from 'typeorm';
-import { Tag, Task, SuggestedTaskTag } from '../../../database';
+import { Tag, Task } from '../../../database';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Exclude } from 'class-transformer';
 
@@ -31,8 +31,8 @@ export class SuggestedTask {
   })
   tags: Tag[];
 
-  @OneToMany(() => SuggestedTaskTag, (stt) => stt.suggestedTask)
-  suggestedTaskTags: SuggestedTaskTag[];
+  // @OneToMany(() => SuggestedTaskTag, (stt) => stt.suggestedTask)
+  // suggestedTaskTags: SuggestedTaskTag[];
 
   @OneToMany(() => Task, (task) => task.suggestedTask)
   tasks: Task[];

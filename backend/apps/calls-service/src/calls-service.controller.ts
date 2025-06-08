@@ -10,6 +10,7 @@ import {
 import { CallsService } from './calls-service.service';
 import { Roles } from '../../auth/src/roles.decorator';
 import { UserRole } from '../../../libs/database/src/entities/user.entity';
+import { log } from 'winston';
 
 @Controller('calls')
 export class CallsController {
@@ -61,6 +62,7 @@ export class CallsController {
   @Roles(UserRole.USER)
   @Get('suggested-tasks/:id')
   getSuggestedTasksByCallId(@Param('id') callId: string) {
+    console.log('get suggested task by call Id', { callId });
     return this.callsService.getSuggestedTasksByCallId(callId);
   }
 

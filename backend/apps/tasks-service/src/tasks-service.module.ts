@@ -8,7 +8,7 @@ import { LoggerModule } from '@phishing/logger';
 import { TaskController } from './tasks-service.controller';
 import { TaskService } from './tasks-service.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Task, Call } from '../../../libs/database';
+import { Task, Call, SuggestedTask } from '../../../libs/database';
 
 import { DatabaseModule } from '../../../libs/database';
 
@@ -27,7 +27,7 @@ import { DatabaseModule } from '../../../libs/database';
         configService.get<string>('SERVICE_NAME') || 'TasksService',
     }),
     DatabaseModule,
-    TypeOrmModule.forFeature([Task, Call]),
+    TypeOrmModule.forFeature([Task, Call, SuggestedTask]),
   ],
   controllers: [TaskController],
   providers: [TaskService],

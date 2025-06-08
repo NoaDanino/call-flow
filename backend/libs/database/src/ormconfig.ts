@@ -1,13 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import {
-  Task,
-  Call,
-  Tag,
-  CallTag,
-  SuggestedTask,
-  SuggestedTaskTag,
-  User,
-} from './entities';
+import { Task, Call, Tag, CallTag, SuggestedTask, User } from './entities';
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
@@ -17,5 +9,5 @@ export const dataSourceOptions: DataSourceOptions = {
   password: 'admin',
   database: 'call_center_db',
   synchronize: true,
-  entities: [Call, Task, SuggestedTask, Tag, CallTag, SuggestedTaskTag, User],
+  entities: [Call, Task, SuggestedTask, Tag, CallTag, User],
 };

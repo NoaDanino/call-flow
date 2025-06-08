@@ -79,7 +79,7 @@ export class CallsService {
 
     const suggestedTasks = await this.suggestedTaskRepository
       .createQueryBuilder('task')
-      .leftJoin('task.tags', 'tag')
+      .leftJoinAndSelect('task.tags', 'tag') // כאן התיקון
       .where('tag.id IN (:...tagIds)', { tagIds })
       .getMany();
 

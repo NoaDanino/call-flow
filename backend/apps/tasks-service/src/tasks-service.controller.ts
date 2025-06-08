@@ -18,13 +18,23 @@ import { UserRole } from '../../../libs/database/src/entities/user.entity';
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
+  // @Roles(UserRole.USER)
+  // @Post('addTaskByCallId/:callId')
+  // async addTaskToCall(
+  //   @Param('callId') callId: string,
+  //   @Body('name') name: string,
+  // ) {
+  //   return this.taskService.addTaskToCall(callId, name);
+  // }
+
   @Roles(UserRole.USER)
   @Post('addTaskByCallId/:callId')
   async addTaskToCall(
     @Param('callId') callId: string,
     @Body('name') name: string,
+    @Body('suggestedTaskId') suggestedTagId: string,
   ) {
-    return this.taskService.addTaskToCall(callId, name);
+    return this.taskService.addTaskToCall(callId, suggestedTagId, name);
   }
 
   @Roles(UserRole.USER)
