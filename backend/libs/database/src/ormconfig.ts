@@ -8,6 +8,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: 'postgres',
   password: 'admin',
   database: 'call_center_db',
-  synchronize: true,
+  synchronize: false,
+  migrationsRun: true,
   entities: [Call, Task, SuggestedTask, Tag, CallTag, User],
 };

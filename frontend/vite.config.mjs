@@ -9,4 +9,8 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './vitest.setup.mjs',
   },
+    server: {
+    host: '0.0.0.0',
+    port: 5173
+  },
 });

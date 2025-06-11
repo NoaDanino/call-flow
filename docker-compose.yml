@@ -1,24 +1,25 @@
 version: "3.9"
 services:
   postgres:
-    image: postgres:15
+    image: postgres:16.9-bullseye
     container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: main
+      POSTGRES_DB: call_center_db
     ports:
       - "5434:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./backend/libs/database/postgres.sql:/docker-entrypoint-initdb.d/init.sql
 
   calls-service:
     build:
       context: ./backend
       dockerfile: Docker/Dockerfile.calls-service
     environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+      - DATABASE_URL=postgresql://postgres:admin@postgres:5432/call_center_db
     depends_on:
       - postgres
     ports:
@@ -29,7 +30,7 @@ services:
       context: ./backend
       dockerfile: Docker/Dockerfile.auth-service
     environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+      - DATABASE_URL=postgresql://postgres:admin@postgres:5432/call_center_db
     depends_on:
       - postgres
     ports:
@@ -40,7 +41,7 @@ services:
       context: ./backend
       dockerfile: Docker/Dockerfile.suggested-tasks-service
     environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+      - DATABASE_URL=postgresql://postgres:admin@postgres:5432/call_center_db
     depends_on:
       - postgres
     ports:
@@ -51,7 +52,7 @@ services:
       context: ./backend
       dockerfile: Docker/Dockerfile.tags-service
     environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+      - DATABASE_URL=postgresql://postgres:admin@postgres:5432/call_center_db
     depends_on:
       - postgres
     ports:
@@ -62,7 +63,7 @@ services:
       context: ./backend
       dockerfile: Docker/Dockerfile.tasks-service
     environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+      - DATABASE_URL=postgresql://postgres:admin@postgres:5432/call_center_db
     depends_on:
       - postgres
     ports:

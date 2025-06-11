@@ -17,4 +17,4 @@ COPY . .
 
 RUN yarn build 
 
-CMD ["npm start:prod"]
+CMD ["yarn", "dev"]
