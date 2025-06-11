@@ -1,0 +1,85 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: main
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  calls-service:
+    build:
+      context: ./backend
+      dockerfile: Docker/Dockerfile.calls-service
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+
+  auth-service:
+    build:
+      context: ./backend
+      dockerfile: Docker/Dockerfile.auth-service
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+    depends_on:
+      - postgres
+    ports:
+      - "3008:3000"
+
+  suggested-tasks-service:
+    build:
+      context: ./backend
+      dockerfile: Docker/Dockerfile.suggested-tasks-service
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+    depends_on:
+      - postgres
+    ports:
+      - "3003:3000"
+
+  tags-service:
+    build:
+      context: ./backend
+      dockerfile: Docker/Dockerfile.tags-service
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+    depends_on:
+      - postgres
+    ports:
+      - "3001:3000"
+
+  tasks-service:
+    build:
+      context: ./backend
+      dockerfile: Docker/Dockerfile.tasks-service
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/main
+    depends_on:
+      - postgres
+    ports:
+      - "3002:3000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - calls-service
+      - auth-service
+      - suggested-tasks-service
+      - tags-service
+      - tasks-service
+
+volumes:
+  postgres_data:

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { TaskService } from './tasks-service.service';
 import { EditTaskNameDto, EditTaskStatusDto } from '@callCenter/common';
-import { Roles } from '../../auth/src/roles.decorator';
+import { Roles } from '@callCenter/common';
 import { UserRole, Task } from '@callCenter/database';
 
 @Controller('tasks')

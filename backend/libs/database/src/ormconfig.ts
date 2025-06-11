@@ -3,7 +3,7 @@ import { Task, Call, Tag, CallTag, SuggestedTask, User } from './entities';
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
-  host: 'localhost',
+  host: 'postgres', //localhost in local
   port: 5432,
   username: 'postgres',
   password: 'admin',

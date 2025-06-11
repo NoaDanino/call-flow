@@ -12,7 +12,7 @@ import { LoggerService } from '@callCenter/logger';
 
 import { TagsService } from './tags-service.service';
 import { CreateTagDto } from '@callCenter/common';
-import { Roles } from '../../auth/src/roles.decorator';
+import { Roles } from '@callCenter/common';
 import { UserRole, Tag } from '@callCenter/database';
 
 @Controller('tags')

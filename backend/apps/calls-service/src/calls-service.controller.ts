@@ -8,9 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CallsService } from './calls-service.service';
-import { Roles } from '../../auth/src/roles.decorator';
-import { UserRole } from '@callCenter/database/src/entities/user.entity';
-import { log } from 'winston';
+import { Roles } from '@callCenter/common';
+import { UserRole } from '@callCenter/database';
 
 @Controller('calls')
 export class CallsController {

@@ -1,0 +1,13 @@
+FROM node:20
+WORKDIR /app
+
+COPY package*.json ./
+COPY nest-cli.json ./
+COPY tsconfig*.json ./
+COPY libs ./libs
+COPY tsconfig*.json ./
+COPY apps/suggested-tasks-service ./apps/suggested-tasks-service
+
+RUN npm install
+RUN npm run build suggested-tasks-service
+CMD ["node", "dist/apps/suggested-tasks/main.js"]

@@ -14,7 +14,7 @@ import {
   EditSuggestedTaskTagsDto,
   CreateSuggestedTaskDto,
 } from '@callCenter/common';
-import { Roles } from '../../auth/src/roles.decorator';
+import { Roles } from '@callCenter/common';
 import { UserRole } from '@callCenter/database';
 
 @Controller('suggested-tasks')

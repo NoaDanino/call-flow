@@ -1,0 +1,13 @@
+FROM node:20
+WORKDIR /app
+
+COPY package*.json ./
+COPY nest-cli.json ./
+COPY tsconfig*.json ./
+COPY libs ./libs
+COPY tsconfig*.json ./
+COPY apps/tasks-service ./apps/tasks-service
+
+RUN npm install
+RUN npm run build tasks-service
+CMD ["node", "dist/apps/tasks-service/main.js"]
